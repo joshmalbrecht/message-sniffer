@@ -11,9 +11,21 @@ sudo docker run -d \
 
 http://localhost:15672/
 
+Queue:
 ```
 go run main.go queue \
     --name testing \
+    -u guest \
+    -p guest \
+    --hostname localhost \
+    --port 5672
+```
+
+Topic:
+```
+go run main.go topic \
+    -n test.exchange \
+    -r org.building1.floor2.#
     -u guest \
     -p guest \
     --hostname localhost \
