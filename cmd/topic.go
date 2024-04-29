@@ -7,8 +7,8 @@ import (
 
 var topicCmd = &cobra.Command{
 	Use:   "topic",
-	Short: "TODO: Add description",
-	Long:  `TODO: Add a longer description`,
+	Short: "Displays messages that are produced on a topic",
+	Long:  `Displays messages that are produced on a topic.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		exchangeName, _ := cmd.Flags().GetString("exchange-name")
 		routingKey, _ := cmd.Flags().GetString("routing-key")
@@ -22,10 +22,9 @@ var topicCmd = &cobra.Command{
 }
 
 func init() {
-	topicCmd.PersistentFlags().StringP("exchange-name", "n", "", "exchange name to sniff on")
+	topicCmd.PersistentFlags().StringP("exchange-name", "n", "", "Exchange name to sniff on")
 	topicCmd.MarkPersistentFlagRequired("exchange-name")
-	topicCmd.PersistentFlags().StringP("routing-key", "r", "", "routing key to sniff on")
-	topicCmd.MarkPersistentFlagRequired("routing-key")
+	topicCmd.PersistentFlags().StringP("binding-key", "b", "#", "Binding key used to filter messages that are published on the defined exchange")
 
 	rootCmd.AddCommand(topicCmd)
 }

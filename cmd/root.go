@@ -8,8 +8,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "message-sniffer",
-	Short: "TODO: Add short description",
-	Long:  `TODO: Add long description`,
+	Short: "Tool used for displaying published messages on a RabbitMQ broker",
 }
 
 func Execute() {
@@ -20,10 +19,10 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringP("username", "u", "guest", "defines username used to connect to a rabbitmq broker")
-	rootCmd.PersistentFlags().StringP("password", "p", "guest", "defines password used to connect to a rabbitmq broker")
+	rootCmd.PersistentFlags().StringP("username", "u", "guest", "Username used to connect to a rabbitmq broker")
+	rootCmd.PersistentFlags().StringP("password", "p", "guest", "Password used to connect to a rabbitmq broker")
 	rootCmd.MarkFlagsRequiredTogether("username", "password")
 
-	rootCmd.PersistentFlags().StringP("hostname", "H", "localhost", "defines hostname for rabbitmq broker")
-	rootCmd.PersistentFlags().IntP("port", "P", 5672, "defines port for rabbitmq broker")
+	rootCmd.PersistentFlags().StringP("hostname", "H", "localhost", "Hostname used to connect to a rabbitmq broker")
+	rootCmd.PersistentFlags().IntP("port", "P", 5672, "Port used to connect to a rabbitmq broker")
 }
