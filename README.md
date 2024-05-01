@@ -1,33 +1,16 @@
 # message-sniffer
 
-Starting Rabbitmq container with management UI:
-```
-sudo docker run -d \
-    --name rabbitmq \
-    -p 5672:5672 \
-    -p 15672:15672 \
-    rabbitmq:3-management
-```
+Message sniffer is a command-line tool for displaying messages from RabbitMQ queues and exchanges.
 
-http://localhost:15672/
 
-Queue:
-```
-go run main.go queue \
-    --name testing \
-    -u guest \
-    -p guest \
-    --hostname localhost \
-    --port 5672
-```
+## Getting Started
 
-Topic:
-```
-go run main.go topic \
-    -n amq.direct \
-    -r org.building1.floor2.#
-    -u guest \
-    -p guest \
-    --hostname localhost \
-    --port 5672
-```
+
+### Installation
+
+TODO: Add installation instructions once release process is done
+
+
+## License
+
+TODO: Add once a license has been decided
