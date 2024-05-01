@@ -7,8 +7,9 @@ import (
 
 var queueCmd = &cobra.Command{
 	Use:   "queue",
-	Short: "TODO: Add description for queue",
-	Long:  `TODO: Add longer description for queue`,
+	Short: "Prints queue messages",
+	Long: `Displays all of the messages that exist in the provided queue and continues to display messages 
+	as they are created in the queue. The messages in the queue are not acknowledged.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		queueName, _ := cmd.Flags().GetString("name")
 		hostname, _ := cmd.Flags().GetString("hostname")
@@ -21,7 +22,7 @@ var queueCmd = &cobra.Command{
 }
 
 func init() {
-	queueCmd.PersistentFlags().StringP("name", "n", "", "queue name to sniff on")
+	queueCmd.PersistentFlags().StringP("name", "n", "", "Name of a queue to display messages for")
 	queueCmd.MarkPersistentFlagRequired("name")
 
 	rootCmd.AddCommand(queueCmd)

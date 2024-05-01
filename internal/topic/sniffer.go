@@ -7,9 +7,6 @@ import (
 )
 
 func Sniff(exchangeName string, routingKey string, hostname string, port int, username string, password string) {
-	// TODO: Is there a way to figure out which messaging broker is being used based on the provided connection
-	// information? This would prevent us from having to have the user specify that information.
-
 	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d", username, password, hostname, port))
 	if err != nil {
 		panic(fmt.Sprintf("Unable to connect to broker: %s", err.Error()))
@@ -40,8 +37,8 @@ func Sniff(exchangeName string, routingKey string, hostname string, port int, us
 		q.Name,       // queue name
 		routingKey,   // routing key
 		exchangeName, // exchange
-		false,
-		nil,
+		false,        // no-wait
+		nil,          // arguments
 	)
 	if err != nil {
 		panic(fmt.Sprintf("Unable to bind queue: %s", err.Error()))
@@ -54,7 +51,7 @@ func Sniff(exchangeName string, routingKey string, hostname string, port int, us
 		false,  // exclusive
 		false,  // no local
 		false,  // no wait
-		nil,    // args
+		nil,    // arguments
 	)
 
 	var forever chan struct{}

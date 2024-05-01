@@ -24,7 +24,7 @@ go run main.go queue \
 Topic:
 ```
 go run main.go topic \
-    -n test.exchange \
+    -n amq.direct \
     -r org.building1.floor2.#
     -u guest \
     -p guest \
