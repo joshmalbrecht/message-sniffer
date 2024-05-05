@@ -6,7 +6,7 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-func Sniff(exchangeName string, routingKey string, hostname string, port int, username string, password string) {
+func Sniff(exchangeName string, bindingKey string, hostname string, port int, username string, password string) {
 	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d", username, password, hostname, port))
 	if err != nil {
 		panic(fmt.Sprintf("Unable to connect to broker: %s", err.Error()))
@@ -35,7 +35,7 @@ func Sniff(exchangeName string, routingKey string, hostname string, port int, us
 
 	err = ch.QueueBind(
 		q.Name,       // queue name
-		routingKey,   // routing key
+		bindingKey,   // key
 		exchangeName, // exchange
 		false,        // no-wait
 		nil,          // arguments
