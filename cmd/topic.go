@@ -11,13 +11,13 @@ var topicCmd = &cobra.Command{
 	Long:  `Displays messages that are produced on a topic.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		exchangeName, _ := cmd.Flags().GetString("exchange-name")
-		routingKey, _ := cmd.Flags().GetString("routing-key")
+		bindingKey, _ := cmd.Flags().GetString("binding-key")
 		hostname, _ := cmd.Flags().GetString("hostname")
 		port, _ := cmd.Flags().GetInt("port")
 		username, _ := cmd.Flags().GetString("username")
 		password, _ := cmd.Flags().GetString("password")
 
-		topic.Sniff(exchangeName, routingKey, hostname, port, username, password)
+		topic.Sniff(exchangeName, bindingKey, hostname, port, username, password)
 	},
 }
 
