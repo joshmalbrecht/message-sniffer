@@ -28,4 +28,4 @@ Message sniffer is a command-line tool for displaying messages from RabbitMQ que
 
 ## License
 
-TODO: Add once a license has been decided
+[GNU General Public License v3](https://github.com/joshmalbrecht/message-sniffer/blob/main/LICENSE)
