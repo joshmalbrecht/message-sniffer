@@ -24,5 +24,6 @@ func init() {
 	rootCmd.MarkFlagsRequiredTogether("username", "password")
 
 	rootCmd.PersistentFlags().StringP("hostname", "H", "localhost", "Hostname used to connect to a rabbitmq broker")
+	rootCmd.PersistentFlags().StringP("virtual-host", "V", "", "Virtual host (vhost) used to connect to a rabbitmq broker")
 	rootCmd.PersistentFlags().IntP("port", "P", 5672, "Port used to connect to a rabbitmq broker")
 }
