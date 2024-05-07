@@ -13,11 +13,12 @@ var topicCmd = &cobra.Command{
 		exchangeName, _ := cmd.Flags().GetString("exchange-name")
 		bindingKey, _ := cmd.Flags().GetString("binding-key")
 		hostname, _ := cmd.Flags().GetString("hostname")
+		virtualHost, _ := cmd.Flags().GetString("virtual-host")
 		port, _ := cmd.Flags().GetInt("port")
 		username, _ := cmd.Flags().GetString("username")
 		password, _ := cmd.Flags().GetString("password")
 
-		topic.Sniff(exchangeName, bindingKey, hostname, port, username, password)
+		topic.Sniff(exchangeName, bindingKey, hostname, port, virtualHost, username, password)
 	},
 }
 

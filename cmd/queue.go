@@ -13,11 +13,12 @@ var queueCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		queueName, _ := cmd.Flags().GetString("name")
 		hostname, _ := cmd.Flags().GetString("hostname")
+		virtualHost, _ := cmd.Flags().GetString("virtual-host")
 		port, _ := cmd.Flags().GetInt("port")
 		username, _ := cmd.Flags().GetString("username")
 		password, _ := cmd.Flags().GetString("password")
 
-		queue.Sniff(queueName, hostname, port, username, password)
+		queue.Sniff(queueName, hostname, port, virtualHost, username, password)
 	},
 }
 

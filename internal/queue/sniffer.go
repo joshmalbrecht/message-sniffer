@@ -3,14 +3,11 @@ package queue
 import (
 	"fmt"
 
-	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/joshmalbrecht/message-sniffer/internal/connection"
 )
 
-func Sniff(queueName string, hostname string, port int, username string, password string) {
-	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d", username, password, hostname, port))
-	if err != nil {
-		panic(fmt.Sprintf("Unable to connect to broker: %s", err.Error()))
-	}
+func Sniff(queueName string, hostname string, port int, virtHost string, username string, password string) {
+	conn := connection.Connect(hostname, port, virtHost, username, password)
 
 	defer conn.Close()
 
