@@ -6,14 +6,15 @@ import (
 	"github.com/joshmalbrecht/message-sniffer/internal/connection"
 )
 
-func Sniff(exchangeName string, bindingKey string, hostname string, port int, virtHost string, username string, password string) {
+func Sniff(exchangeName string, bindingKey string, hostname string, port int, virtHost string, username string, password string) error {
 	conn := connection.Connect(hostname, port, virtHost, username, password)
 
 	defer conn.Close()
 
 	ch, err := conn.Channel()
 	if err != nil {
-		panic(fmt.Sprintf("Unable to connect to channel: %s", err.Error()))
+		fmt.Println(fmt.Sprintf("Unable to connect to channel: %s", err.Error()))
+		return err
 	}
 
 	defer ch.Close()
@@ -27,7 +28,8 @@ func Sniff(exchangeName string, bindingKey string, hostname string, port int, vi
 		nil,   // arguments
 	)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to declare queue: %s", err.Error()))
+		fmt.Println(fmt.Sprintf("Unable to declare queue: %s", err.Error()))
+		return err
 	}
 
 	err = ch.QueueBind(
@@ -38,11 +40,12 @@ func Sniff(exchangeName string, bindingKey string, hostname string, port int, vi
 		nil,          // arguments
 	)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to bind queue: %s", err.Error()))
+		fmt.Println(fmt.Sprintf("Unable to bind queue: %s", err.Error()))
+		return err
 	}
 
 	msgs, err := ch.Consume(
-		q.Name, // queue
+		q.Name, // queue name
 		"",     // consumer
 		true,   // auto ack
 		false,  // exclusive
@@ -60,4 +63,6 @@ func Sniff(exchangeName string, bindingKey string, hostname string, port int, vi
 	}()
 
 	<-forever
+
+	return nil
 }
