@@ -6,20 +6,21 @@ import (
 	"github.com/joshmalbrecht/message-sniffer/internal/connection"
 )
 
-func Sniff(queueName string, hostname string, port int, virtHost string, username string, password string) {
+func Sniff(queueName string, hostname string, port int, virtHost string, username string, password string) error {
 	conn := connection.Connect(hostname, port, virtHost, username, password)
 
 	defer conn.Close()
 
 	ch, err := conn.Channel()
 	if err != nil {
-		panic(fmt.Sprintf("Unable to connect to channel: %s", err.Error()))
+		fmt.Println(fmt.Sprintf("Unable to connect to channel: %s", err.Error()))
+		return err
 	}
 
 	defer ch.Close()
 
 	msgs, err := ch.Consume(
-		queueName, // queue
+		queueName, // queue name
 		"",        // consumer
 		false,     // auto-ack
 		false,     // exclusive
@@ -28,7 +29,8 @@ func Sniff(queueName string, hostname string, port int, virtHost string, usernam
 		nil,       // arguments
 	)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to consume message: %s", err.Error()))
+		fmt.Println(fmt.Sprintf("Unable to consume message: %s", err.Error()))
+		return err
 	}
 
 	var forever chan struct{}
@@ -40,4 +42,6 @@ func Sniff(queueName string, hostname string, port int, virtHost string, usernam
 	}()
 
 	<-forever
+
+	return nil
 }
