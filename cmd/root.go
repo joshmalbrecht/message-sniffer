@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/joshmalbrecht/message-sniffer/internal/config"
 	"github.com/spf13/cobra"
 )
 
@@ -26,4 +28,15 @@ func init() {
 	rootCmd.PersistentFlags().StringP("hostname", "H", "localhost", "Hostname used to connect to a rabbitmq broker")
 	rootCmd.PersistentFlags().StringP("virtual-host", "V", "", "Virtual host (vhost) used to connect to a rabbitmq broker")
 	rootCmd.PersistentFlags().IntP("port", "P", 5672, "Port used to connect to a rabbitmq broker")
+
+	rootCmd.AddCommand(versionCmd)
+}
+
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Print the version number of message-sniffer",
+	Long:  `Print the version number of message-sniffer`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(config.Intance().GetVersion())
+	},
 }
